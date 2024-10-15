@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="requireds-fields">
+        <input
+          class="e name"
+          type="text"
+          name="name"
+          required
+          placeholder="Please enter you name"
+        />
+        <input
+          class="e email"
+          type="email"
+          name="name"
+          required
+          placeholder="Please enter you email"
+        />
+        <input
+          class="e phone"
+          type="number"
+          name="phone"
+          required
+          placeholder="Please enter you phone"
+        />
+        <input type="button" value="Add User" onclick="valuesCollector()" />
+      </div>
+      <div class="form-data">
+        <h2>Users info:</h2>
+        <div class="user-data"></div>
+      </div>
+    </div>
+    <script>
+      const usersDetail = [];
+      function valuesCollector(e) {
+        let inputValue = document.getElementsByClassName("e");
+        let data = {
+          name: inputValue[0].value,
+          email: inputValue[1].value,
+          phone: inputValue[2].value,
+        };
+
+        const { name, email, phone } = data;
+        // console.log(typeof name, typeof email, typeof phone);
+        if (
+          name !== undefined &&
+          email !== undefined &&
+          phone !== undefined &&
+          name !== ""
+        ) {
+          usersDetail.push(data);
+          usersDetail.map((value, index) => {
+            let userdata = document.getElementsByClassName("user-data")[0];
+
+            let UL = document.createElement("ul");
+            let name = document.createElement("li");
+            let email = document.createElement("li");
+            let phone = document.createElement("li");
+            let btnDiv = document.createElement("div");
+            let editbtn = document.createElement("button");
+            let deletebtn = document.createElement("button");
+
+            btnDiv.classList.add("buttons");
+            editbtn.classList.add("edit");
+            // deletebtn.classList.add("delete");
+            deletebtn.id="delete";
+
+            name.innerText = value.name;
+            email.innerText = value.email;
+            phone.innerText = value.phone;
+            editbtn.innerHTML = "edit";
+            deletebtn.innerHTML = "delete";
+
+            userdata.appendChild(UL);
+            UL.append(name, email, phone, btnDiv);
+            btnDiv.append(editbtn, deletebtn);
+
+            inputValue[0].value = null;
+            inputValue[1].value = null;
+            inputValue[2].value = null;
+            // console.log(index);
+            // console.log(usersDetail)
+            
+
+            document.getElementById("delete").addEventListener("click",del );
+            function del(params) {
+                // const ans=usersDetail.splice(index,1)
+                console.log(usersDetail[index])
+                // console.log(ans)
+            }
+          });
+        } else {
+          alert("Some this is wrong...!");
+        }
+      }
+
+    </script>
+  </body>
+</html>

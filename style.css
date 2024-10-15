@@ -1,0 +1,109 @@
+:root{
+    ---font_family:"Roboto", sans-serif;
+}
+body{
+    box-sizing: border-box;
+    outline: none;
+}
+.container {
+    margin: 20px;
+    max-width: 350px;
+    width: 100%;
+    margin: 0 auto;
+}
+.requireds-fields {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid orange;
+    padding: 30px;
+    /* width: 100%; */
+    margin: 0 auto;
+    gap: 11px;
+    border-radius: 10px;
+    font-family: var(---font_family);
+}
+input,input:focus-visible{
+    /* width: 300px; */
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid orange;
+    /* font-size: medium; */
+    outline: none;
+    font-family: var(---font_family);
+    padding: 0px 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="button"] {
+    width: max-content;
+    margin: 0 auto;
+    background: rgb(60, 60, 253);
+    border: none;
+    color: white;
+    padding: 0px 22px;
+    cursor: pointer;
+}
+input[type="button"]:hover {
+    /* transform: scale(1.02); */
+    transition: .5s;
+    background: rgb(0, 0, 191);
+}
+.form-data{
+    width: -webkit-fill-available;
+    margin: 0 auto;
+    font-family: var(---font_family);
+}
+.user-data {
+    /* width: 100%; */
+    margin: 0 auto;
+    
+}
+ul{
+    /* padding: 0px;
+    margin: 0px; */
+    border: 1px solid orange;
+    font-family: var(---font_family);
+    border-radius: 10px;
+    padding: 30px;
+}
+ul>li{
+    list-style: none;
+    /* font-weight: 600; */
+    padding: 3px 0px;
+}
+a{
+    text-decoration: none;
+    color: unset;
+    font-family: var(---font_family);
+    cursor: pointer;
+}
+h2{
+    font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  /* font-style: normal; */
+}
+.buttons {
+    padding-top: 12px;
+}
+.edit,.delete {
+    padding: 5px 21px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-family: var(---font_family);
+    margin: 0px 4px;
+    cursor: pointer;
+}
+.edit:hover{
+    background-color: rgb(0, 0, 152);
+}
+.delete {
+background-color: crimson;
+}
+.delete:hover {
+    background-color: rgb(156, 0, 31);
+    }
