@@ -11,27 +11,32 @@
     <div class="container">
       <div class="requireds-fields">
         <input
-          class="e name"
+          class="inputs name"
           type="text"
           name="name"
           required
           placeholder="Please enter you name"
         />
         <input
-          class="e email"
+          class="inputs email"
           type="email"
           name="name"
           required
           placeholder="Please enter you email"
         />
         <input
-          class="e phone"
+          class="inputs phone"
           type="number"
           name="phone"
           required
           placeholder="Please enter you phone"
         />
-        <input type="button" value="Add User" onclick="valuesCollector()" />
+        <input
+          type="button"
+          value="Add User"
+          id="addcontact"
+          onclick="valuesCollector()"
+        />
       </div>
       <div class="form-data">
         <h2>Users info:</h2>
@@ -39,69 +44,115 @@
       </div>
     </div>
     <script>
-      const usersDetail = [];
+      let editeValueIndex = null; //inital index  of edit values
+      const usersData = []; //input data bundler
+
+      // set input values data
       function valuesCollector(e) {
-        let inputValue = document.getElementsByClassName("e");
+        let addContact = document.getElementById("addcontact");
+        let inputValue = document.getElementsByClassName("inputs");
+
         let data = {
+          //current inputs data
           name: inputValue[0].value,
           email: inputValue[1].value,
           phone: inputValue[2].value,
         };
 
         const { name, email, phone } = data;
-        // console.log(typeof name, typeof email, typeof phone);
         if (
           name !== undefined &&
           email !== undefined &&
           phone !== undefined &&
-          name !== ""
+          name !== "" &&
+          email !== "" &&
+          phone !== ""
         ) {
-          usersDetail.push(data);
-          usersDetail.map((value, index) => {
-            let userdata = document.getElementsByClassName("user-data")[0];
+          PrevaluesRemover(); //previus values remover
+          editeValueIndex !== null
+            ? usersData.splice(editeValueIndex, 1, data)
+            : usersData.push(data);
 
-            let UL = document.createElement("ul");
-            let name = document.createElement("li");
-            let email = document.createElement("li");
-            let phone = document.createElement("li");
-            let btnDiv = document.createElement("div");
-            let editbtn = document.createElement("button");
-            let deletebtn = document.createElement("button");
+          editeValueIndex = null;
 
-            btnDiv.classList.add("buttons");
-            editbtn.classList.add("edit");
-            // deletebtn.classList.add("delete");
-            deletebtn.id="delete";
+          editeValueIndex !== null //update button value
+            ? (addContact.value = "Update User")
+            : (addContact.value = "Add User");
 
-            name.innerText = value.name;
-            email.innerText = value.email;
-            phone.innerText = value.phone;
-            editbtn.innerHTML = "edit";
-            deletebtn.innerHTML = "delete";
+          valuesIterator(inputValue);
 
-            userdata.appendChild(UL);
-            UL.append(name, email, phone, btnDiv);
-            btnDiv.append(editbtn, deletebtn);
-
-            inputValue[0].value = null;
-            inputValue[1].value = null;
-            inputValue[2].value = null;
-            // console.log(index);
-            // console.log(usersDetail)
-            
-
-            document.getElementById("delete").addEventListener("click",del );
-            function del(params) {
-                // const ans=usersDetail.splice(index,1)
-                console.log(usersDetail[index])
-                // console.log(ans)
-            }
-          });
+          inputValue[0].value = null;
+          inputValue[1].value = null;
+          inputValue[2].value = null;
         } else {
-          alert("Some this is wrong...!");
+          alert("Some thing is wrong...!");
         }
       }
 
+      // values iterator
+      function valuesIterator(inputValue) {
+        usersData.map((value, index) => {
+          let userdata = document.getElementsByClassName("user-data")[0];
+
+          let UL = document.createElement("ul");
+          let name = document.createElement("li");
+          let email = document.createElement("li");
+          let phone = document.createElement("li");
+          let btnDiv = document.createElement("div");
+          let editbtn = document.createElement("button");
+          let deletebtn = document.createElement("button");
+
+          btnDiv.classList.add("buttons");
+          editbtn.classList.add("edit");
+          editbtn.type = "submit";
+          deletebtn.id = "delete";
+          editbtn.type = "submit";
+
+          name.innerText = value.name;
+          email.innerText = value.email;
+          phone.innerText = value.phone;
+          editbtn.innerHTML = "edit";
+          deletebtn.innerHTML = "delete";
+
+          userdata.appendChild(UL);
+          UL.append(name, email, phone, btnDiv);
+          btnDiv.append(editbtn, deletebtn);
+
+          editbtn.onclick = () => editHandler(index);
+          deletebtn.onclick = () => deleteHandler(index);
+        });
+      }
+
+      // delete data
+      function deleteHandler(index) {
+        const deletedItem = usersData.splice(index, 1);
+        PrevaluesRemover();
+        valuesIterator();
+      }
+
+      // edit data
+      function editHandler(index) {
+        editeValueIndex = index;
+        let inputValue = document.getElementsByClassName("inputs");
+        let { name, email, phone } = usersData[index];
+        inputValue[0].focus();
+        inputValue[0].value = name;
+        inputValue[1].value = email;
+        inputValue[2].value = phone;
+
+        let addContact = document.getElementById("addcontact");
+        editeValueIndex !== null //update button value
+          ? (addContact.value = "Update User")
+          : (addContact.value = "Add User");
+      }
+
+      // remove Previus data
+      function PrevaluesRemover(params) {
+        const element = document.querySelectorAll("ul");
+        element.forEach((element) => {
+          element !== undefined ? element.remove() : null;
+        });
+      }
     </script>
   </body>
 </html>
